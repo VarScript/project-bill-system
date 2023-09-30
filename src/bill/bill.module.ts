@@ -1,7 +1,4 @@
 import { Module } from '@nestjs/common';
-import { BillController } from './bill.controller';
 
-@Module({
-  controllers: [BillController]
-})
+@Module({})
 export class BillModule {}
