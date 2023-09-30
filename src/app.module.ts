@@ -5,7 +5,10 @@ import { ThirdPartyBilledModule } from './third-party-billed/third-party-billed.
 import { BillModule } from './bill/bill.module';
 import { ConceptModule } from './concept/concept.module';
 import { BillDetailModule } from './bill-detail/bill-detail.module';
-import { TypeOrmModule} from '@nestjs/typeorm'
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { BillEntity } from './typeorm/entities/bill.entity';
+import { ConceptEntity } from './typeorm/entities/concept.entity';
+import { BillDetailEntity } from './typeorm/entities/bill-detail.entity';
 
 @Module({
   imports: [
@@ -16,7 +19,12 @@ import { TypeOrmModule} from '@nestjs/typeorm'
       username: 'root',
       password: '#Pass_I3',
       database: 'bill_system_db',
-      entities: [],
+      entities: [
+        ThirdPartyBilledModule,
+        BillEntity,
+        ConceptEntity,
+        BillDetailEntity,
+      ],
       synchronize: true,
     }),
     ThirdPartyBilledModule,
