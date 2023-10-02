@@ -2,12 +2,13 @@ import {
   Column,
   Decimal128,
   Entity,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { BillDetailEntity } from './bill-detail.entity';
 import { v4 as uuidv4 } from 'uuid';
-
+import { TpbEntity } from './third_party_billed.entity';
 
 @Entity({ name: 'bill' })
 export class BillEntity {
@@ -29,6 +30,15 @@ export class BillEntity {
     scale: 8,
   })
   total: number;
+
+  @Column()
+  tpbId:number;
+  
+  @ManyToOne(
+    () => TpbEntity,
+    (tpbEntity) => tpbEntity.bill,
+  )
+  tbp: TpbEntity;
 
   @OneToMany(
     () => BillDetailEntity,
