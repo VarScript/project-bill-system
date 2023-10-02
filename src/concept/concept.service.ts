@@ -1,7 +1,8 @@
 import {
-  BadRequestException,
+  ForbiddenException,
+  HttpException,
+  HttpStatus,
   Injectable,
-  NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ConceptEntity } from 'src/typeorm/entities/concept.entity';
@@ -10,7 +11,6 @@ import {
   CreateConceptDto,
   EditConceptDto,
 } from './dto';
-import { NotFoundError } from 'rxjs';
 
 @Injectable()
 export class ConceptService {
@@ -23,37 +23,64 @@ export class ConceptService {
     return this.conceptRepository.find();
   }
 
-  createConcept(concept: CreateConceptDto) {
-    try {
-      const newConcept =
-        this.conceptRepository.create(concept);
-      return this.conceptRepository.save(
-        newConcept,
+  async createConcept(concept: CreateConceptDto) {
+    if (
+      !concept.description ||
+      !concept.quantity ||
+      !concept.unit_price
+    )
+      throw new ForbiddenException(
+        'The values are invalid',
       );
-    } catch (error) {
-      throw new BadRequestException(
-        'Los datos proporcionados son inválidos.',
-      );
-    }
+    const newConcept =
+      this.conceptRepository.create(concept);
+    return await this.conceptRepository.save(
+      newConcept,
+    );
   }
 
-  updateConcept(
+  async updateConcept(
     id: number,
     concept: EditConceptDto,
   ) {
-    try {
-      return this.conceptRepository.update(
-        { id },
-        concept,
-      );
-    } catch (error) {
-      throw new BadRequestException(
-        'Los datos proporcionados son inválidos.',
+    const conceptFound =
+      await this.conceptRepository.findOne({
+        where: {
+          id,
+        },
+      });
+
+    if (!conceptFound) {
+      return new HttpException(
+        'Concept not found',
+        HttpStatus.NOT_FOUND,
       );
     }
+
+    const updateConcept = Object.assign(
+      conceptFound,
+      concept,
+    );
+    return this.conceptRepository.save(
+      updateConcept,
+    );
   }
 
-  deleteConcept(id: number) {
+  async deleteConcept(id: number) {
+    const conceptFound =
+      await this.conceptRepository.findOne({
+        where: {
+          id,
+        },
+      });
+
+    if (!conceptFound) {
+      return new HttpException(
+        'Concept not found',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
     return this.conceptRepository.delete({ id });
   }
 }

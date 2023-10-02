@@ -3,8 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  HttpCode,
-  HttpStatus,
   Param,
   ParseIntPipe,
   Patch,
@@ -41,7 +39,6 @@ export class ConceptController {
     return this.conceptService.updateConcept(id, updateConcept);
   }
 
-  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   deleteConcept(
     @Param('id', ParseIntPipe) id: number,

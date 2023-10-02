@@ -6,6 +6,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { BillDetailEntity } from './bill-detail.entity';
+import { v4 as uuidv4 } from 'uuid';
+
 
 @Entity({ name: 'bill' })
 export class BillEntity {
@@ -13,7 +15,7 @@ export class BillEntity {
   id: number;
 
   @Column()
-  number: string;
+  number: string = uuidv4();
 
   @Column({
     type: 'datetime',

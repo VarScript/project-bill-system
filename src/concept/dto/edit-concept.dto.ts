@@ -1,21 +1,5 @@
-import {
-    IsDecimal,
-    IsNotEmpty,
-    IsNumber,
-    IsOptional,
-    IsString,
-  } from 'class-validator';
-
 export class EditConceptDto {
-    @IsString()
-    @IsOptional()
-    description?: string;
-
-    @IsDecimal()
-    @IsOptional()
-    unit_price?: number;
-
-    @IsNumber()
-    @IsOptional()
-    quantity?: number;
+  description?: string;
+  unit_price?: number;
+  quantity?: number;
 }

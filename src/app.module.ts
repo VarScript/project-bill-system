@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ThirdPartyBilledModule } from './third-party-billed/third-party-billed.module';
 import { BillModule } from './bill/bill.module';
 import { ConceptModule } from './concept/concept.module';
@@ -9,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BillEntity } from './typeorm/entities/bill.entity';
 import { ConceptEntity } from './typeorm/entities/concept.entity';
 import { BillDetailEntity } from './typeorm/entities/bill-detail.entity';
+import { TpbEntity } from './typeorm/entities/third_party_billed.entity';
 
 @Module({
   imports: [
@@ -20,7 +19,7 @@ import { BillDetailEntity } from './typeorm/entities/bill-detail.entity';
       password: '#Pass_I3',
       database: 'bill_system_db',
       entities: [
-        ThirdPartyBilledModule,
+        TpbEntity,
         BillEntity,
         ConceptEntity,
         BillDetailEntity,
@@ -32,7 +31,5 @@ import { BillDetailEntity } from './typeorm/entities/bill-detail.entity';
     ConceptModule,
     BillDetailModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
