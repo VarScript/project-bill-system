@@ -1,10 +1,12 @@
 import {
   Column,
   Entity,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { BillDetailEntity } from './bill-detail.entity';
+import { BillEntity } from './bill.entity';
 
 @Entity({ name: 'concept' })
 export class ConceptEntity {
@@ -29,4 +31,13 @@ export class ConceptEntity {
     (billDetail) => billDetail.concept,
   )
   billDetails: BillDetailEntity[];
+
+  @Column()
+  billId: number;
+
+  @ManyToOne(
+    () => BillEntity,
+    (billEntity) => billEntity.concepts,
+  )
+  bill: BillEntity;
 }

@@ -9,6 +9,7 @@ import {
 import { BillDetailEntity } from './bill-detail.entity';
 import { v4 as uuidv4 } from 'uuid';
 import { TpbEntity } from './third_party_billed.entity';
+import { ConceptEntity } from './concept.entity';
 
 @Entity({ name: 'bill' })
 export class BillEntity {
@@ -32,13 +33,19 @@ export class BillEntity {
   total: number;
 
   @Column()
-  tpbId:number;
+  tpbId: number;
 
   @ManyToOne(
     () => TpbEntity,
     (tpbEntity) => tpbEntity.bill,
   )
   tpb: TpbEntity;
+
+  @OneToMany(
+    () => ConceptEntity,
+    (conceptEntity) => conceptEntity,
+  )
+  concepts: ConceptEntity[]
 
   @OneToMany(
     () => BillDetailEntity,
