@@ -16,7 +16,25 @@ export class ThirdPartyBilledService {
     private tpbRepository: Repository<TpbEntity>,
   ) {}
 
-  getTpb() {
+  async getTpb(id: number) {
+    const tpbFound =
+      await this.tpbRepository.findOne({
+        where: {
+          id,
+        },
+      });
+
+    if (!tpbFound) {
+      return new HttpException(
+        'Not found',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    return tpbFound;
+  }
+
+  getTpbs() {
     return this.tpbRepository.find();
   }
   async createTpb(tpb: CreateTpbDto) {

@@ -19,6 +19,24 @@ export class ConceptService {
     private conceptRepository: Repository<ConceptEntity>,
   ) {}
 
+  async getConcept(id: number) {
+    const conceptFound =
+      await this.conceptRepository.findOne({
+        where: {
+          id,
+        },
+      });
+
+    if (!conceptFound) {
+      return new HttpException(
+        'Not found',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    return conceptFound;
+  }
+
   getConcepts() {
     return this.conceptRepository.find();
   }

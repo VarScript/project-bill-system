@@ -17,9 +17,16 @@ import { EditBillDto } from './dto/edit-bill.dto';
 export class BillController {
   constructor(private billService: BillService) {}
 
+  @Get(':id')
+  getBill(
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.billService.getBill(id);
+  }
+
   @Get()
-  getBill(): Promise<BillEntity[]> {
-    return this.billService.getBill();
+  getBills(): Promise<BillEntity[]> {
+    return this.billService.getBills();
   }
 
   @Post()

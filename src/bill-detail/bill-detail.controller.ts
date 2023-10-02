@@ -21,9 +21,16 @@ export class BillDetailController {
     private billDetatilService: BillDetailService,
   ) {}
 
+  @Get(':id')
+  getBill(
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.billDetatilService.getBillDetail(id);
+  }
+
   @Get()
   getBillDetal(): Promise<BillDetailEntity[]> {
-    return this.billDetatilService.getBillDetail();
+    return this.billDetatilService.getBillDetails();
   }
 
   @Post()

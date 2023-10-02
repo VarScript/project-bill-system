@@ -19,7 +19,25 @@ export class BillDetailService {
     private billDetailRepository: Repository<BillDetailEntity>,
   ) {}
 
-  getBillDetail() {
+  async getBillDetail(id: number) {
+    const billDetailFound =
+      await this.billDetailRepository.findOne({
+        where: {
+          id,
+        },
+      });
+
+    if (!billDetailFound) {
+      return new HttpException(
+        'Not found',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    return billDetailFound;
+  }
+
+  getBillDetails() {
     return this.billDetailRepository.find();
   }
 

@@ -18,9 +18,16 @@ export class ThirdPartyBilledController {
     private tpbService: ThirdPartyBilledService,
   ) {}
 
+  @Get(':id')
+  getBill(
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.tpbService.getTpb(id);
+  }
+
   @Get()
   getTpb(): Promise<TpbEntity[]> {
-    return this.tpbService.getTpb();
+    return this.tpbService.getTpbs();
   }
   @Post()
   createTpb(@Body() tpb: CreateTpbDto) {

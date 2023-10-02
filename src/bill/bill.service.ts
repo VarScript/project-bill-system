@@ -18,7 +18,25 @@ export class BillService {
     private billRepository: Repository<BillEntity>,
   ) {}
 
-  getBill() {
+  async getBill(id: number) {
+    const billFound =
+      await this.billRepository.findOne({
+        where: {
+          id,
+        },
+      });
+
+    if (!billFound) {
+      return new HttpException(
+        'Not found',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    return billFound;
+  }
+
+  getBills() {
     return this.billRepository.find();
   }
 
@@ -28,8 +46,7 @@ export class BillService {
         'The values are invalid',
       );
     const newBill =
-      this.billRepository.create(bill, );
-
+      this.billRepository.create(bill);
 
     return await this.billRepository.save(
       newBill,
@@ -49,7 +66,7 @@ export class BillService {
 
     if (!billFound) {
       return new HttpException(
-        'Concept not found',
+        'Bill not found',
         HttpStatus.NOT_FOUND,
       );
     }

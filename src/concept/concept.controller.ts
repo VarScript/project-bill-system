@@ -18,6 +18,13 @@ export class ConceptController {
     private conceptService: ConceptService,
   ) {}
 
+  @Get(':id')
+  getBill(
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.conceptService.getConcept(id);
+  }
+
   @Get()
   getConcepts(): Promise<ConceptEntity[]> {
     return this.conceptService.getConcepts();
