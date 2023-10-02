@@ -32,7 +32,7 @@ export class BillController {
   @Post()
   createBill(
     @Body() createBill: CreateBillDto,
-  ): Promise<BillEntity> {
+  ) {
     return this.billService.createBill(
       createBill,
     );

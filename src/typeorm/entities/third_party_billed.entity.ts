@@ -22,7 +22,7 @@ export class TpbEntity {
 
   @OneToMany(
     () => BillEntity,
-    (billEntity) => billEntity.tbp,
+    (billEntity) => billEntity.tpb,
   )
   bill: BillEntity[];
 }

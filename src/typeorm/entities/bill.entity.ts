@@ -33,12 +33,12 @@ export class BillEntity {
 
   @Column()
   tpbId:number;
-  
+
   @ManyToOne(
     () => TpbEntity,
     (tpbEntity) => tpbEntity.bill,
   )
-  tbp: TpbEntity;
+  tpb: TpbEntity;
 
   @OneToMany(
     () => BillDetailEntity,

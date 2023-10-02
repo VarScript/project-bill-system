@@ -8,5 +8,6 @@ import { TpbEntity } from 'src/typeorm/entities/third_party_billed.entity';
   imports: [TypeOrmModule.forFeature([TpbEntity])],
   controllers: [ThirdPartyBilledController],
   providers: [ThirdPartyBilledService],
+  exports: [ThirdPartyBilledService]
 })
 export class ThirdPartyBilledModule {}

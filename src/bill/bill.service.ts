@@ -10,12 +10,14 @@ import { BillEntity } from 'src/typeorm/entities/bill.entity';
 import { Repository } from 'typeorm';
 import { CreateBillDto } from './dto/create-bill.dto';
 import { EditBillDto } from './dto/edit-bill.dto';
+import { ThirdPartyBilledService } from 'src/third-party-billed/third-party-billed.service';
 
 @Injectable()
 export class BillService {
   constructor(
     @InjectRepository(BillEntity)
     private billRepository: Repository<BillEntity>,
+    private tpbService: ThirdPartyBilledService,
   ) {}
 
   async getBill(id: number) {
@@ -24,6 +26,7 @@ export class BillService {
         where: {
           id,
         },
+        relations: ['tpb']
       });
 
     if (!billFound) {
@@ -37,14 +40,26 @@ export class BillService {
   }
 
   getBills() {
-    return this.billRepository.find();
+    return this.billRepository.find({
+      relations: ['tpb']
+    });
   }
 
   async createBill(bill: CreateBillDto) {
-    if (!bill.total)
+    const tpbFound = await this.tpbService.getTpb(
+      bill.tpbId,
+    );
+    if (!tpbFound)
+      return new HttpException(
+        'Not found',
+        HttpStatus.NOT_FOUND,
+      );
+
+    if (!bill.total || !bill.tpbId)
       throw new ForbiddenException(
         'The values are invalid',
       );
+      
     const newBill =
       this.billRepository.create(bill);
 

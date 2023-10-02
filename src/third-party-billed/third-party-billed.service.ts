@@ -22,6 +22,7 @@ export class ThirdPartyBilledService {
         where: {
           id,
         },
+        relations: ['bill']
       });
 
     if (!tpbFound) {
@@ -35,8 +36,11 @@ export class ThirdPartyBilledService {
   }
 
   getTpbs() {
-    return this.tpbRepository.find();
+    return this.tpbRepository.find({
+      relations: ['bill']
+    });
   }
+  
   async createTpb(tpb: CreateTpbDto) {
     if (!tpb.name || !tpb.phone || !tpb.address)
       throw new ForbiddenException(
