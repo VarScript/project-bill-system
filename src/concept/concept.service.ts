@@ -11,12 +11,14 @@ import {
   CreateConceptDto,
   EditConceptDto,
 } from './dto';
+import { BillService } from 'src/bill/bill.service';
 
 @Injectable()
 export class ConceptService {
   constructor(
     @InjectRepository(ConceptEntity)
     private conceptRepository: Repository<ConceptEntity>,
+    private billService: BillService,
   ) {}
 
   async getConcept(id: number) {
@@ -38,14 +40,28 @@ export class ConceptService {
   }
 
   getConcepts() {
-    return this.conceptRepository.find();
+    return this.conceptRepository.find({
+      relations: ['bill']
+    });
   }
 
   async createConcept(concept: CreateConceptDto) {
+    const billFound =
+      await this.billService.getBill(
+        concept.billId,
+      );
+
+    if (!billFound)
+      return new HttpException(
+        'Not found',
+        HttpStatus.NOT_FOUND,
+      );
+
     if (
       !concept.description ||
       !concept.quantity ||
-      !concept.unit_price
+      !concept.unit_price ||
+      !concept.billId
     )
       throw new ForbiddenException(
         'The values are invalid',

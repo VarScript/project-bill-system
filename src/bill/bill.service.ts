@@ -41,7 +41,7 @@ export class BillService {
 
   getBills() {
     return this.billRepository.find({
-      relations: ['tpb']
+      relations: ['tpb', 'concepts']
     });
   }
 

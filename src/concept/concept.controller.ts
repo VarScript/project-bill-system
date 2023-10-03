@@ -33,7 +33,7 @@ export class ConceptController {
   @Post()
   createConcept(
     @Body() createConcept: CreateConceptDto,
-  ): Promise<ConceptEntity> {
+  ) {
     return this.conceptService.createConcept(
       createConcept,
     );

@@ -43,7 +43,7 @@ export class BillEntity {
 
   @OneToMany(
     () => ConceptEntity,
-    (conceptEntity) => conceptEntity,
+    (conceptEntity) => conceptEntity.bill,
   )
   concepts: ConceptEntity[]
 
