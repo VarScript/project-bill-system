@@ -28,7 +28,7 @@
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Documentation
-[Initial ER Diagram]([https://lucid.app/lucidchart/7ef123be-ce78-43ee-84e2-358e1b96d608/edit?viewport_loc=-161%2C-27%2C2433%2C1056%2C0_0&invitationId=inv_60e84407-03d3-4722-8d97-715a61efa75](https://lucid.app/lucidchart/7ef123be-ce78-43ee-84e2-358e1b96d608/edit?viewport_loc=-161%2C-27%2C1591%2C1056%2C0_0&invitationId=inv_60e84407-03d3-4722-8d97-715a61efa757))
+[Initial ER Diagram](https://lucid.app/lucidchart/7ef123be-ce78-43ee-84e2-358e1b96d608/edit?viewport_loc=-161%2C-27%2C1591%2C1056%2C0_0&invitationId=inv_60e84407-03d3-4722-8d97-715a61efa757)
 
 [PostMan Documentation](https://documenter.getpostman.com/view/22974338/2s9YJc2PBX)
 
