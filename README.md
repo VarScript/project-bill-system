@@ -25,7 +25,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Presenting our NestJS API project: a powerful billing system. Our primary goal is to deliver a platform that facilitates the creation, retrieval, updating, and deletion of billed entities, invoices, and concepts. Leveraging TypeORM, we seamlessly interact with a local MySQL database, ensuring efficient data management.
 
 ## Documentation
 [Initial ER Diagram](https://lucid.app/lucidchart/7ef123be-ce78-43ee-84e2-358e1b96d608/edit?viewport_loc=-161%2C-27%2C1591%2C1056%2C0_0&invitationId=inv_60e84407-03d3-4722-8d97-715a61efa757)
